@@ -1,4 +1,21 @@
 '''Tic Tac Toe Game...'''
+#Import Modules:
+import pyttsx3 # --> Text to speech.
+
+# Voice Initialization:
+engine = pyttsx3.init('sapi5')
+voice = engine.getProperty('voices')
+engine.setProperty('voice', voice[1].id)
+
+# voice[0].id --> Male Voice.
+# voice[1].id --> Female Voice.
+
+# Functions:
+
+def speak(audio):
+    '''This Function speaks the input value.'''
+    engine.say(audio)
+    engine.runAndWait()
 
 def do_sum (first,second,third):
     ''' This Function sums the input values..'''
@@ -33,7 +50,8 @@ def check_string():
             input_value = int(input_value)
             return input_value
         else:
-            print('Invalid Input. Try between 0 - 9.')
+            print('OOps! Invalid Input. Try between 0 - 9.')
+            speak('OOps! Invalid Input. Try between 0 - 9.')
 
 def check_winner(state_x,state_tick):
     '''This function checks who is the winner.'''
@@ -44,11 +62,13 @@ def check_winner(state_x,state_tick):
     for win in win_condition:
 
         if do_sum(state_x[win[0]], state_x[win[1]], state_x[win[2]]) == 3:
-            print(f"{player1} Won the match")
+            print(f"Congratulations! {player1} You have won the match")
+            speak(f"Congratulations! {player1} You have won the match")
             return 1
 
         if do_sum(state_tick[win[0]], state_tick[win[1]], state_tick[win[2]]) == 3:
-            print(f"{player2} Won the match")
+            print(f"Congratulations! {player2} You have won the match")
+            speak(f"Congratulations! {player2} You have won the match")
             return 0
 
     return -1
@@ -61,6 +81,7 @@ if __name__ == "__main__":
 
     # Welcome Message.
     print ('Welcome to Tic Tac Toe Game..')
+    speak ('Welcome to Tic Tac Toe Game..')
 
     # Player Names.
     player1 = input ('Please Enter Player 1 name: ')
@@ -97,6 +118,7 @@ if __name__ == "__main__":
         CHECK_REPLAY = 'valid'
 
         while CHECK_REPLAY == 'valid':
+            speak('Do You wanna Play the Match Again')
             ask_replay = input ("Do You wanna Play the Match Again (y or n): ")
 
             if ask_replay == 'y':
@@ -106,6 +128,8 @@ if __name__ == "__main__":
                 REPLAY = "invalid"
                 CHECK_REPLAY = "invalid"
                 print ("ThankYou! For playing this game..")
+                speak ("ThankYou! For playing this game..")
 
             else:
                 print("You Have Entered invalid value Please Try Again..")
+                speak("You Have Entered invalid value Please Try Again..")
